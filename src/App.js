@@ -2,6 +2,14 @@ import React, { Component } from 'react';
 import Chart from 'react-apexcharts';
 
 class App extends Component {
+  componentDidMount() {
+    this.autoUpdate();
+  }
+
+  autoUpdate() {
+    this.interval = setInterval(() => this.updateCharts(), 2000);
+  }
+
   constructor(props) {
     super(props);
 
@@ -266,7 +274,10 @@ class App extends Component {
           </div>
 
           <p className='col'>
-            <button onClick={this.updateCharts}>Update!</button>
+            <button onClick={() => this.autoUpdate()}>Update!</button>
+          </p>
+          <p className='col'>
+            <button onClick={() => clearInterval(this.interval)}>Stop!</button>
           </p>
         </div>
         <pre>{JSON.stringify(this.state.seriesMixedChart, 0, 2)}</pre>
